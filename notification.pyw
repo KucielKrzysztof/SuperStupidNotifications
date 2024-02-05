@@ -21,6 +21,7 @@ class App:
     def __init__(self):
         self.exit_event = Event()
         self.notifications = [
+            #todo: let the user add externally
             CustomNotification("GO TO WORK!!!!", "test1", 0, 18),
             CustomNotification("GO TO WORK!!!!", "test2", 23, 58,)
             # YES IKR ADDING IT MANUALLY IS XD
