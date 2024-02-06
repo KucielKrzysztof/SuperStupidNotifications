@@ -23,7 +23,7 @@ class App:
         self.exit_event = Event()
         self.notifications = []
         menu = (item('SUPER stupid Notifications', self.click), item('Close', self.exit_program))
-        self.icon = Icon("name", Image.open("assets/icon.png"), "SUPER stupid Notifications", menu=menu)
+        self.icon = Icon("name", Image.open("assets/icon.png"), "SUPER STUPID NOTIFICATIONS", menu=menu)
         pygame.init()
 
         #GUI SETUP
@@ -36,6 +36,7 @@ class App:
         self.frame2 = tk.Frame(self.root, bg='#282A36')
         self.frame = tk.Frame(self.root, bg='#282A36')
 
+        self.main_label = tk.Label(self.root, text="SUPER STUPID NOTIFICATIONS", bg='#282A36', fg='#34b3b3', font=("Helvetica", 20))
         self.title_label = tk.Label(self.root, text="Title", bg='#282A36', fg='#FFFFFF')
         self.title_entry = tk.Entry(self.root, bg='#2d2f3d', fg='#FFFFFF', width=50)
         self.message_label = tk.Label(self.root, text="Message", bg='#282A36', fg='#FFFFFF')
@@ -52,6 +53,7 @@ class App:
 
 
         #GUI DISPLAY
+        self.main_label.pack(pady=(10, 0))
         self.title_label.pack()
         self.title_entry.pack()
         self.message_label.pack()
