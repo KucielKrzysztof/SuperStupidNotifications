@@ -9,7 +9,7 @@ and is good, that would be logical....
 <p align="center">
 <img  src="assets/dizzy.gif">
 </p>
-<h3 align="center">Language use:</h3>
+<h3 align="center">Language used:</h3>
 <p align="center">
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="50" height="50"/>
 </p>
