@@ -1,0 +1,5 @@
+plyer==2.1.0
+pystray
+pillow==10.2.0
+pygame==2.5.2
+tk==0.1.0

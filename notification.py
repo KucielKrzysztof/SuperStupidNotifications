@@ -6,7 +6,7 @@ from pystray import Icon, MenuItem as item
 from PIL import Image
 from threading import Thread, Event
 import pygame
-#import tkinter as tk
+import tkinter as tk
 
 class CustomNotification:
     def __init__(self, title, message, hour, minute):
@@ -26,11 +26,57 @@ class App:
         self.icon = Icon("name", Image.open("assets/icon.png"), "SUPER stupid Notifications", menu=menu)
         pygame.init()
 
+        #GUI SETUP
+        self.root = tk.Tk()
+        self.root.geometry("1280x720")
+        self.root.title("SUPER stupid Notifications")
+        self.root.configure(bg='#282A36')
+        self.root.iconbitmap('assets/icon.ico')
+
+        self.title_label = tk.Label(self.root, text="Title", bg='#282A36', fg='#FFFFFF')
+        self.title_entry = tk.Entry(self.root, bg='#2d2f3d', fg='#FFFFFF')
+        self.message_label = tk.Label(self.root, text="Message", bg='#282A36', fg='#FFFFFF')
+        self.message_entry = tk.Entry(self.root, bg='#2d2f3d', fg='#FFFFFF')
+        self.hour_label = tk.Label(self.root, text="Hour", bg='#282A36', fg='#FFFFFF')
+        self.hour_entry = tk.Entry(self.root, bg='#2d2f3d', fg='#FFFFFF')
+        self.minute_label = tk.Label(self.root, text="Minute", bg='#282A36', fg='#FFFFFF')
+        self.minute_entry = tk.Entry(self.root, bg='#2d2f3d', fg='#FFFFFF')
+        self.add_button = tk.Button(self.root, text="Add Notification", command=self.add_notification_gui,bg='#a8536c', fg='#FFFFFF')
+        self.close_button = tk.Button(self.root, text="Continue", command=self.root.destroy, bg='#34b3b3', fg='#FFFFFF')
+
+        self.frame = tk.Frame(self.root, bg='#282A36')
+        self.scrollbar = tk.Scrollbar(self.frame, orient=tk.HORIZONTAL,  bg='#282A36')
+        self.notification_listbox = tk.Listbox(self.frame, xscrollcommand=self.scrollbar.set, width=200, bg='#2d2f3d', fg='#FFFFFF')
+        self.listbox_label = tk.Label(self.frame, text="This notifications will be added:", bg='#282A36', fg='#FFFFFF')
+        #GUI DISPLAY
+        self.title_label.pack()
+        self.title_entry.pack()
+        self.message_label.pack()
+        self.message_entry.pack()
+        self.hour_label.pack()
+        self.hour_entry.pack()
+        self.minute_label.pack()
+        self.minute_entry.pack()
+        self.add_button.pack(pady=(5, 0))
+        self.close_button.pack(pady=(10, 0))
+        self.frame.pack()
+        self.scrollbar.config(command=self.notification_listbox.xview)
+        self.scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+        self.listbox_label.pack(pady=(50, 0))
+        self.notification_listbox.pack(expand=True)
+
+
+    def add_notification_gui(self):
+        title = self.title_entry.get()
+        message = self.message_entry.get()
+        hour = int(self.hour_entry.get())
+        minute = int(self.minute_entry.get())
+        self.add_notification(title, message, hour, minute)
+        notification_str = f"Title: {title}, Message: {message}, Hour: {hour}:{minute}"
+        self.notification_listbox.insert(tk.END, notification_str)
+        
+
     def add_notification(self, title, message, hour, minute):
-        #title = input("Title: ")
-        #message = input("Message: ")
-        #hour = int(input("Hour (0-23): "))
-        #minute = int(input("Minute (0-59): "))
         new_notification = CustomNotification(title, message, hour, minute)
         self.notifications.append(new_notification)
 
@@ -56,14 +102,10 @@ class App:
                 if current_time.hour == notification.hour and current_time.minute == notification.minute:
                     self.play_sound("assets/alert.mp3")
                     self.show_notification(notification.title, notification.message)
-            time.sleep(10)
+            time.sleep(60)
 
     def main(self):
-        while True:
-            self.add_notification(input("Title: "), input("Message: "), int(input("Hour (0-23): ")), int(input("Minute (0-59): ")))
-            add_more = input("Do you want to add more notifications? (y/n): ")
-            if add_more.lower() != 'y':
-                break
+        self.root.mainloop()
         notifications_thread = Thread(target=self.check_notifications)
         notifications_thread.start()
         self.icon.run()
