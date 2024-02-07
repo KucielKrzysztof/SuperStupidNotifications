@@ -28,3 +28,10 @@ python notification.py
 ```
 
 3. After that program will be running, to close it <span style="color:red">Click</span> "Close" on app Tray in your Windows
+
+<!--
+
+TODO:
+TRY changing how app looks in process manager
+
+-->
