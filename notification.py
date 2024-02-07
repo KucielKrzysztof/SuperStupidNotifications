@@ -16,7 +16,7 @@ class CustomNotification:
         self.minute = minute
 
 def show_notification(title, message):
-    ctypes.windll.user32.MessageBoxW(0, message, title, 1)
+    ctypes.windll.user32.MessageBoxW(0, message, title, 0)
 
 class App:
     def __init__(self):
@@ -91,7 +91,7 @@ class App:
         self.notifications.append(new_notification)
 
     def show_notification(self, title, message):
-        ctypes.windll.user32.MessageBoxW(0, message, title, 1)
+        ctypes.windll.user32.MessageBoxW(0, message, title, 0+48)
 
     def play_sound(self, sound_file):
         pygame.mixer.music.load(sound_file)
@@ -120,11 +120,17 @@ class App:
 
             time.sleep(10)
 
-    def main(self):
-        self.root.mainloop()
+    def start_threads(self):
         notifications_thread = Thread(target=self.check_notifications)
         notifications_thread.start()
-        self.icon.run()
+        icon_thread = Thread(target=self.icon.run)
+        icon_thread.start()
+
+    def main(self):
+        self.start_threads()
+        self.root.mainloop()
+
+
 
 if __name__ == "__main__":
     app = App()
