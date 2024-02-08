@@ -42,5 +42,5 @@ python notification.py
   <!--
 
 TODO:
-
+ADD logo inside app becouse somehow i forgot XDDDD
 -->
