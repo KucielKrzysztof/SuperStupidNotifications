@@ -38,7 +38,7 @@ python notification.py
 <p align="center">
  <img src="assets/warning.png" height="60px">
 </p>
-<h2 align="center">After that program will be running. <br>To close it Click "Close" on app Tray in your Windows  </h2>
+<h2 align="center">After both program will be running. <br>To close it Click "Close" on app Tray in your Windows  </h2>
   <!--
 
 TODO:
